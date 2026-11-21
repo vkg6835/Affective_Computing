@@ -1,12 +1,17 @@
 # Technical project priorities
 
-Updated 15 November 2026 after fixed-model scoring and verified technical
-delivery. Paper drafting remains deferred. Local GPU work has completed all
-currently authorized computation and demonstration tasks.
+Updated 21 November 2026 after completing the checked 14-page IEEE TAI paper
+draft. Local GPU work has completed all currently authorized computation and
+demonstration tasks. The next writing step is author and professor review of
+the title, author details, interpretation, and appendix placement.
+
+[Review PDF](output/pdf/paper_20261121/manuscript.pdf) |
+[Overleaf source ZIP](output/pdf/paper_20261121/overleaf_source.zip) |
+[Concrete review notes](paper/latex_20261121/REVIEW_NOTES.md)
 
 The local GPU evaluation and delivery work is complete. Independent human
 label/difficulty review remains pending because no reviewer is available.
-Paper drafting remains deferred. Completion describes work delivered and does
+The paper draft is complete for review. Completion describes work delivered and does
 not imply reliable deployment.
 
 The retained video model is the layer-4 fine-tuned R3D-18 candidate. Validation
@@ -66,9 +71,10 @@ Do not tune the retained epoch, threshold or model against these completed
 evaluation sets. Source independence, pretraining overlap, calibrated scores,
 person-level attribution and streaming evaluation require separate work.
 
-Resume paper drafting when Vishal brings it back into scope. The previous
-requirement was a complete manuscript of at least 12 pages before 20 November,
-with an internal target of 19 November. The final group date remains unconfirmed.
+Paper drafting resumed and the checked 14-page review copy was completed on
+21 November. The previous requirement was at least 12 pages before 20 November,
+with an internal target of 19 November. The review-copy date is not evidence
+of on-time submission. The final group date remains unconfirmed.
 
 ## Previous work order (paper drafting deferred)
 

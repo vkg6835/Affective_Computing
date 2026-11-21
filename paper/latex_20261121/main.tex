@@ -1,0 +1,42 @@
+\documentclass[journal]{IEEEtai}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx,array,booktabs,tabularx}
+\usepackage[colorlinks,urlcolor=blue,linkcolor=blue,citecolor=blue]{hyperref}
+\usepackage{url}
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+\newcommand{\pct}{\%}
+\newcommand{\R}{\mathbb{R}}
+\setcounter{page}{1}
+\begin{document}
+\title{Violence and Goon Detection in a Crowd or Protest}
+\author{Sudhakar Mishra, Vishal Gautam, Ishat Shivhare, Parth Parmar, Hanmant Jajulwar, Tanu Meena, and \mbox{Prakriti Manhar}
+\thanks{The authors are with the Department of Artificial Intelligence, Sardar Vallabhbhai National Institute of Technology, Surat, India.}
+\thanks{E-mail: sudhakarm@aid.svnit.ac.in; student addresses are \{u23ai127, u23ai071, u23ai084, u23ai098, u23ai076, u23ai114\}@coed.svnit.ac.in, respectively.}}
+\markboth{}{}
+\maketitle
+\begin{abstract}
+Violence classification in crowded video is difficult because nonviolent motion can resemble aggression and occlusion can degrade body-pose estimates. This study evaluates joint-reliability channels and nearest-person interaction features in a shared temporal convolutional classifier, alongside pretrained video references and limited video fine-tuning. Five custom source-grouped folds and three training seeds cover 245 unique crowd clips from 204 known source groups. Corrected pose centering yields mean accuracies of 77.0\%, 78.1\%, 78.6\%, and 74.7\% for baseline, reliability, interaction, and combined variants. A quality-only linear control reaches 77.6\%, and a matched detection-only temporal control reaches 72.5\%, indicating predictive detection cues. A frozen video encoder with logistic classifiers reaches 91.0\% mean crowd accuracy. On a separate supervised surveillance experiment, validation selects limited fine-tuning at epoch two and a threshold of 0.23. Fixed evaluation reduces missed fights from 43 to 25 but increases false alarms from 21 to 40, while accuracy changes from 84.0\% to 83.75\%. On 1,000 external hockey clips, frozen and fine-tuned video accuracy is 70.8\% and 81.1\%, whereas crowd-pose accuracy is 40.9\%. These exploratory results support modest pose-feature gains, substantial detection-cue signal, and a tradeoff between recall and false alarms. Previously inspected footage, incomplete source audits, and pending independent label review limit confirmatory interpretation.
+\end{abstract}
+\begin{IEEEImpStatement}
+This study supports transparent evaluation of violence classifiers by reporting errors, source-grouped comparisons, and the information retained by diagnostic controls. The results show why a high classification score cannot establish reliable incident detection: a model can miss fights, flag nonviolent clips, and transfer poorly across recording domains. Pose features reduce the representation of appearance but do not by themselves establish privacy protection or remove dataset bias. The implementation and saved experimental records can support reproducible classroom research and further independent evaluation. Operational use would require fresh reviewed footage, application-specific error analysis, and validation of temporal and deployment behavior. The current outputs classify whole clips and do not identify responsible people or infer intent.
+\end{IEEEImpStatement}
+\begin{IEEEkeywords}
+Crowd video, domain transfer, human pose, input controls, temporal convolution, violence classification.
+\end{IEEEkeywords}
+\input{sections/01_introduction}
+\input{sections/02_related_work}
+\input{sections/03_data_protocol}
+\input{sections/04_pose_method}
+\input{sections/05_video_method}
+\input{sections/06_experimental_setup}
+\input{sections/07_results}
+\input{sections/08_discussion}
+\input{sections/09_conclusion}
+\appendices
+\input{sections/10_reproducibility}
+% Balance the final reference columns in this review copy; revisit after edits.
+\IEEEtriggeratref{10}
+\bibliographystyle{IEEEtran}
+\bibliography{references}
+\end{document}

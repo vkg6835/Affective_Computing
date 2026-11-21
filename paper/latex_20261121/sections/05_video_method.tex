@@ -1,0 +1,36 @@
+\section{Video References and Limited Fine-Tuning}
+\subsection{Frozen clip embedding}
+The video path uses the TorchVision R3D-18 encoder with \texttt{KINETICS400\_V1} weights \cite{tran2018,torchvision,kay2017}. The 32 uniform full-clip samples form two chronological, nonoverlapping windows of 16 frames. The official transform converts to RGB, resizes to $128\times171$, center-crops to $112\times112$, and applies the recorded channel mean and standard deviation. The encoder produces a 512-dimensional vector per window, and their average forms one clip embedding:
+\begin{equation}
+\mathbf{e}(V)=\tfrac12\left[f_\theta(W_1)+f_\theta(W_2)\right].
+\label{eq:videoembedding}
+\end{equation}
+This fixed sampling exposes the full clip at a coarse resolution. It can miss a brief event between selected frames. Averaging also discards which window generated a high response. The resulting score is a complete-clip output and is not a temporal event annotation.
+
+Each logistic classifier standardizes embeddings using its training partition only. With training mean $\boldsymbol\mu$ and standard deviation $\boldsymbol\sigma$, the standardized embedding feeds a binary linear logit and sigmoid. Validation log loss chooses regularization from the specified grid, and validation macro-F1 chooses a threshold between 0.10 and 0.90 in steps of 0.01, using proximity to 0.5 to break ties. The learned logistic parameters, normalization, and threshold are stored together.
+
+\subsection{Separate crowd and surveillance references}
+The crowd reference fits five logistic classifiers, one for each source-grouped rotation, on frozen embeddings of the same 245 crowd clips used by the pose study. Its regularization grid is $C\in\{0.01,0.1,1,10\}$. It therefore supplies an exploratory comparison under the same clip assignments. Its different pretraining, input representation, model family, and fitting procedure prevent an equal-capacity claim against the pose TCN. The encoder weights remain unchanged during this experiment.
+
+The supervised RWF reference fits a fresh logistic classifier using the 1,271 RWF training clips. Its grid is $C\in\{0.001,0.01,0.1,1,10\}$. It does not inherit a crowd-trained head. Validation selects $C=0.01$ and threshold 0.50 on the 317 development clips. Existing fixed pretrained evaluation embeddings are reused only after source, sampling, and provenance checks and after sealing the head. A shared pretrained encoder does not make the crowd-trained and RWF-trained heads interchangeable.
+
+Earlier transfer experiments applied crowd-trained models to RWF without RWF fitting. Those scores answer a different question from supervised adaptation. We retain them in the archive and discuss their denominators separately, rather than presenting the supervised result as a matched numerical improvement over an unchanged crowd-only system.
+
+\subsection{Rejected temporal feature candidate}
+A focused development candidate concatenates the original global vector with the mean and componentwise maximum of four local 16-frame window embeddings. The resulting 1,536-dimensional representation uses the same frozen encoder and supervised source split. Window starts include the beginning and end of a clip, with approximately 15 sampled frames per second inside each local window. A fresh logistic head is fitted to this representation.
+
+The candidate must improve validation log loss and macro-F1 while preserving or increasing Fight recall. It selects $C=0.001$ and threshold 0.53 but fails the first two criteria. We retain it as a negative development finding. No released-evaluation features or predictions are produced for this candidate. A failure of this representation under one bounded protocol does not rule out other temporal methods.
+
+\subsection{Layer4 adaptation}
+The fine-tuning candidate initializes the encoder from the same pretrained weights and its head from the selected RWF logistic classifier. The original train-only embedding normalization remains fixed. Only layer4 convolution parameters and the logistic head are trainable. Earlier encoder parameters and every BatchNorm running statistic remain frozen. The trainable parameter count is 24,904,193; this is a restricted set of layers, but it still contains many more parameters than the pose TCN.
+
+AdamW \cite{loshchilov2019} uses backbone learning rate $10^{-5}$, head learning rate $10^{-4}$, weight decay $10^{-4}$, and gradient clipping at norm 1. Eight epochs minimize unweighted binary cross-entropy using two clips per batch and gradient accumulation over eight batches; the final partial accumulation group uses its actual number of batches. The training seed is 42. CUDA float16 autocast with gradient scaling reduces working memory, while parameters remain float32. The official RGB tensors are cached with source and decoding provenance, and no normalization is fitted on validation or evaluation data.
+
+For epoch $k$, unweighted validation log loss is
+\begin{equation}
+L_k=-\frac{1}{n_v}\sum_{i=1}^{n_v}
+\left[y_i\log s_{ik}+(1-y_i)\log(1-s_{ik})\right].
+\end{equation}
+The lowest loss selects the checkpoint, with the earliest epoch breaking exact ties. Validation macro-F1 then selects that checkpoint's threshold. Promotion additionally requires strictly lower validation log loss, strictly higher macro-F1, and nondecreasing Fight recall relative to the frozen reference. This conjunction is a recorded development rule, not a declaration that any single evaluation metric must improve.
+
+The selected candidate is epoch 2 with threshold 0.23. We seal checkpoint bytes, threshold, selection records, and promotion outcome before the fixed RWF and external scoring. No later evaluation result replaces that epoch or threshold. The model-change comparison includes both adapted weights and different validation-selected operating points, so the observed recall change cannot be attributed solely to representation learning.

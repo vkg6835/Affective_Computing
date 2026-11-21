@@ -1,0 +1,44 @@
+\section{Data and Evaluation Boundaries}
+\subsection{Crowd corpus and source grouping}
+The local Violent-Flows release contains 246 low-resolution AVI files, with 123 supplied labels in each class. Removing one byte-identical nonviolent duplicate leaves 245 unique files: 123 violent and 122 nonviolent clips. All retained clips are fully decoded before selecting frame indices. Container frame counts are recorded as metadata and checked against the decoded length, rather than treated as a reliable sampling denominator.
+
+Filename-derived source keys provide an initial grouping. For crowd filenames, the grouping removes the search-category prefix and retains source-title, uploader, and identifier information. Prefix-compatible truncated identifiers are conservatively linked when the title and uploader also match. This rule addresses a development-stage finding that exact string keys could leave related clips in separate partitions. It does not establish that every shared recording has been detected.
+
+Additional source triage examines shared visual content. All 245 clips were decoded, giving 22,027 frames. Densely sampled full-frame and central-crop evidence used perceptual hashes, grayscale correlation, and temporal alignment to screen pairs of different filename groups. The project inspected 20 candidate evidence sheets and recorded 13 supported source links, two of which were redundant through existing groups. The number of known groups decreased from 215 to 204. Shared recordings can include different segments or crops rather than byte-identical files. This source inspection retained the supplied violence labels and did not constitute independent label reannotation.
+
+The repeated study assigns each complete known source group to one of five custom stratified folds. In each rotation, one fold supplies 49 test clips, the preceding fold supplies 49 validation clips, and the remaining folds supply 147 training clips. All clips appear once as test data per training seed. The three temporal-model seeds are 42, 123, and 2026. Each deterministic logistic control is fitted once per fold because repeating a deterministic fit under different seed labels would not provide additional training variation.
+
+These assignments differ from the dataset's supplied fold protocol. Existing footage and preliminary outputs had already been examined during development. The repeated results therefore describe exploratory source-grouped evaluation, with residual uncertainty about unidentified related footage. They do not represent an untouched benchmark or a confirmatory test of a hypothesis chosen before all dataset inspection.
+
+\subsection{Supervised surveillance partition}
+RWF-2000 contains 2,000 released clips, balanced across Fight and NonFight \cite{cheng2020}. The local release has 1,600 training files and 400 files under the directory named \texttt{val}. We use the latter as the released evaluation partition. A separate validation split comes only from released training footage. This naming distinction is important: the 317 development-validation clips select models, while the 400 released evaluation clips provide fixed scores after selection.
+
+Source identifiers are extracted without using the class directory. Byte-identical links merge source groups, including groups that contain both supplied labels. The first fold from five-way stratified group splitting with split seed 42 supplies validation, and the remaining groups supply training. The duplicate audit identifies six train/evaluation byte-duplicate pairs. Excluding all training clips in the linked evaluation source groups removes seven files. Five further same-label development duplicates are also excluded. The final partitions contain 1,271 training and 317 validation clips, while all 400 evaluation clips remain.
+
+The training partition contains 633 NonFight and 638 Fight clips. Validation contains 158 NonFight and 159 Fight clips. Evaluation contains 200 clips per class. Known group counts are 603, 153, and 180 for training, validation, and evaluation, respectively. Table~\ref{tab:data} records the primary denominators. Filename and byte grouping do not exhaust near-duplicate detection. Moreover, all 400 released evaluation clips had been inspected and scored in earlier transfer experiments. Later validation-only selection limits direct evaluation-driven tuning, but it cannot undo that prior exposure.
+
+\begin{table*}[t]
+\caption{Datasets and primary evaluation partitions. Source counts refer to the project's known groups, not independently verified recording identities.}
+\label{tab:data}\centering
+\begin{tabularx}{\textwidth}{lrrrrY}
+\toprule
+Study & Train & Validation & Evaluation & Known groups & Protocol\\
+\midrule
+Crowd, each rotation & 147 & 49 & 49 & 204 total & Five custom grouped folds, three TCN seeds; 245 unique clips.\\
+RWF supervised & 1,271 & 317 & 400 & 603/153/180 & Validation from training release; duplicate-linked train exclusions.\\
+Hockey external & 0 & 0 & 1,000 & Unaudited & Fixed models, normalization, and thresholds; no external fitting.\\
+\bottomrule
+\end{tabularx}
+\end{table*}
+
+\subsection{External hockey corpus}
+The external study uses the Hockey Fight mirror \cite{hockeymirror}, pinned to revision \texttt{2009e360f0887c9d0495f684a488519a625b0293}. Its 1,000 clips contain 500 supplied labels per class. The inventory has 997 unique byte hashes and three duplicate files. All released mirror files remain in the primary denominator, rather than silently removing duplicates after scoring. No byte-identical overlap was found against the compared 2,245-file crowd/RWF inventory.
+
+That result establishes only the outcome of this byte comparison. It does not certify independent source games, identify temporal overlap, or rule out near-duplicates and pretraining overlap. Hockey broadcasts contain camera motion, editing, player equipment, and action patterns that differ from surveillance and crowd footage. We treat this corpus as a recording-domain stress test. Its supplied labels remain unchanged and independently unreviewed.
+
+\subsection{Boundaries between fitting and scoring}
+Every fitted classifier uses training-only normalization and training data for parameter estimation. Validation chooses checkpoints, logistic regularization when specified, and decision thresholds. The fine-tuning candidate must pass a recorded promotion rule before evaluation. The external protocol fixes all model paths, hashes, normalization, and thresholds before its scoring pass. No hockey result selects a new model or operating point.
+
+The frozen RWF video reference remains the predeclared primary external model. Fine-tuned video results are supplementary, and the crowd-pose checkpoint is a transfer diagnostic. We retain these roles after seeing the results. The selected pose checkpoint is the corrected interactions model from fold 1, seed 42, with threshold 0.62, chosen by a fixed convention rather than by external accuracy. Its external score belongs to one saved checkpoint; it is distinct from the mean over all crowd folds and seeds.
+
+Independent full-video label review is pending. The project prepared a neutral review pack, but no independent reviewer has completed it. Computational audits and author-side viewing do not substitute for that review. All findings use the supplied labels, and all primary metric denominators retain the declared clips, including cases with poor pose support.

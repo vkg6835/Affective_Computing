@@ -1,0 +1,23 @@
+\section{Implementation and Evidence Records}
+\subsection{Experiment identities}
+The project archive distinguishes experiments by dated directories and frozen protocol hashes. The primary pose results use the corrected CPU experiment and its matched legacy CPU reference. The GPU input controls and earlier coverage ablation are separate experiments, preserving device and feature-schema differences. The accompanying experiment index maps each manuscript study to its exact archive directory and principal result files.
+
+Separate records identify the crowd video heads, crowd-head RWF transfer, supervised frozen RWF head, rejected temporal candidate, and retained layer4 checkpoint. The fine-tuning record includes validation promotion and all eight training epochs. Final RWF and external Hockey scores each have their own fixed evaluation record. This separation prevents mixing validation, evaluation, and historical transfer results.
+
+An accompanying evidence manifest records hashes of the source result files used to generate manuscript tables and figures. The figures use saved metrics, histories, timings, and posters rather than newly fitted scores. Rounded display values do not replace full-precision source records. Confusion counts and all-clip denominators are checked when generating tables, and the fitting/evaluation archive is read without modification.
+
+\subsection{Checkpoints, input support, and numeric reproduction}
+The corrected pose transfer checkpoint is fold 1, seed 42, interactions, threshold 0.62. Its SHA-256 prefix is \texttt{11cf6c9ca0b5b229}. The fine-tuned checkpoint prefix is \texttt{04692366a21cd546}, and the frozen RWF logistic-model prefix is \texttt{50283bc44a38c604}. The accompanying evidence manifest records the full hashes. They identify the exact saved artifacts, not their scientific validity.
+
+Raw pose caches preserve normalized joints, boxes, observation masks, frame indices, timestamps, track IDs, source hashes, and extraction signatures. Derived corrected features are recomputed from those caches. The raw pose extraction descriptor retains its archived schema label while each classifier records the derived feature schema explicitly. Old checkpoints use their recorded legacy semantics rather than receiving an undocumented correction at inference.
+
+The bounded video decoder reproduces uniform sampling using the actual decoded frame count and retains only selected frames for whole-clip inference. The longer-video interface processes nonoverlapping closed windows offline and records a single-frame tail without assigning it a model prediction. Implementation tests check these accounting behaviors; they do not quantify missed event coverage between samples.
+
+CUDA numeric reproduction can depend on batch shape. The final single-video path preserves the recorded validation batch shape to match the saved score rounding. Fine-tuned scores are not calibrated probabilities. Pose-supported status derives from the recorded valid-joint rule, with a pre-existing 25\% usable-sampled-frame cutoff for the diagnostic subset. Primary evaluation still includes all clips. A support flag is not a validated rejection policy.
+
+\subsection{Runtime environment and sharing}
+The recorded final environment uses Python 3.13, PyTorch 2.11.0 with CUDA 12.8, TorchVision 0.26.0, NumPy 2.5.2, OpenCV 4.14.0.94, and scikit-learn 1.9.1. The experiment-specific protocols preserve package versions and implementation hashes. New fitting on another environment requires a new named experiment, rather than rewriting a sealed record. CPU and GPU numerical checks have separately recorded tolerances and outcomes.
+
+Code, selected evidence, the small pose checkpoint, logistic parameters, and final RGB diagnostic videos are available through the project repository \cite{projectrepo}. Raw datasets, pretrained weights, caches, local environments, and the large fine-tuned checkpoint are separate assets. Some historical report links and hashes therefore refer to files in the full local archive rather than a minimal clone. The repository setup guide describes required weights and expected hashes.
+
+Saved pose demonstrations use the corrected interactions checkpoint and sampled skeleton overlays. Final RGB demonstrations use the fine-tuned checkpoint and show a whole-clip decision. These two sets illustrate different models and should not be interchanged when explaining feature use. All outcome-selected demonstrations are diagnostic examples rather than independent performance samples. The independent review pack remains neutral and incomplete, and its coordinator mapping is kept outside the shared repository.

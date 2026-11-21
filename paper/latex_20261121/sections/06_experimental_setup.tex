@@ -1,0 +1,37 @@
+\section{Experimental Setup and Diagnostic Controls}
+\subsection{Pose fitting and matched comparisons}
+Pose-model normalization uses only observed training-person feature vectors. Per-channel standard deviations are floored at 0.01, standardized values are clipped to $[-10,10]$, and absent person observations remain masked. Training uses AdamW with learning rate 0.001, weight decay 0.01, batches of 16, and norm-1 gradient clipping. Binary cross-entropy weights the positive class using the training NonFight-to-Fight count ratio. A maximum of 180 epochs and patience 30 bound fitting. Validation loss selects the checkpoint, and validation macro-F1 selects the decision threshold.
+
+Each pose variant receives 15 fits across five folds and three seeds. The legacy and corrected centering experiments each contain 60 TCN fits and ten logistic-control fits. Their matched comparison therefore covers 140 fits in total. Both centering experiments use CPU training with the same assignments, nominal dimensions, initialization, and budget. This avoids assigning CPU/GPU fitting differences to a coordinate correction. Historical GPU results remain available with their original feature semantics.
+
+The matched input controls use fresh GPU fits of the corrected combined architecture. They share the 110-channel input shape, 38,017 parameters, source assignments, three seeds, training budget, and validation-only selection. These are 45 fitted networks, rather than inference-time edits of a single checkpoint. The full-input GPU accuracy belongs to this control study and need not numerically equal the corrected CPU combined-model mean.
+
+\subsection{Motion and aggregate-quality controls}
+The motion reference uses grayscale differences and Farneb\"ack optical flow \cite{farneback2003} near the same sampled anchors. Frames are resized to $160\times120$. A $2\times2$ grid summarizes absolute differences, flow speed, median-subtracted flow speed, and horizontal and vertical components. Temporal mean, standard deviation, 90th percentile, and maximum produce 80 features. A standardized logistic classifier is fitted with validation-selected regularization from $C\in\{0.01,0.1,1,10\}$. Median flow subtraction is a descriptor operation rather than validated camera stabilization.
+
+The quality-only logistic control uses seven aggregate variables: usable-pose fraction, mean people, valid-joint fraction, total tracks, maximum detected people, discarded tracks, and frames with people. It contains no joint positions or trajectories. Its regularization is fixed at $C=1$, and validation selects its threshold. A sampled image counts as pose-usable when the total retained valid-joint count is at least five. This is separate from observed-track coverage used by the TCN. The logistic controls differ in capacity and temporal access from the TCN, so they diagnose available signal rather than isolate representation superiority.
+
+\subsection{Coverage and kinematic controls}
+The explicit coverage ablation compares the earlier coverage-enabled GPU experiment with fresh fits that replace only the coverage scalar by zero. The classifier keeps 97 input slots and the same nominal dimensions and initial random draws. Masks, confidence, missing-joint behavior, and other detection cues remain. Thus the ablation tests one direct scalar rather than all possible quality information.
+
+The detection-only input control zeroes the first 68 combined-input channels and interaction channels 102--107 under zero-based indexing. Confidence and validity channels 68--101, neighbor count, neighbor presence, and observation masks remain. As a result, the network retains detection information but cannot receive the explicitly removed coordinates, velocities, distances, offsets, and radial motion. Normalization and fitting are recomputed for this condition.
+
+The shuffled-time control permutes already-derived feature and mask slices together, using a deterministic label-blind permutation derived from the clip identifier. Body and interaction velocities have already been calculated. Each slice consequently retains local kinematic information even though its sequence position changes. This control tests sensitivity to the ordering of derived observations, not the necessity of all motion or the behavior of a causal stream processor.
+
+\subsection{Metrics and aggregation}
+Fight/violent is the positive class. We report accuracy, macro-F1, positive precision and recall, receiver-operating-characteristic area under the curve (ROC-AUC), and confusion counts. If $TP$, $TN$, $FP$, and $FN$ denote supplied-label comparison counts, then
+\begin{align}
+\mathrm{Accuracy}&=\frac{TP+TN}{TP+TN+FP+FN},\\
+\mathrm{Precision}_{+}&=\frac{TP}{TP+FP},\qquad
+\mathrm{Recall}_{+}=\frac{TP}{TP+FN}.
+\end{align}
+Macro-F1 averages the class-specific F1 values. ROC-AUC summarizes score ranking across thresholds; it does not calibrate the score or determine an operational threshold. The saved decision rule is $\widehat{y}=\mathbf{1}[s\geq\tau]$.
+
+Crowd results average fold/seed metrics equally for TCNs and fold metrics for deterministic heads. Descriptive standard deviations summarize these runs. Shared training data across rotations and repeated test clips across seeds mean the observations are dependent. We do not interpret them as independent sample sizes, confidence intervals, or significance tests. Fixed RWF and Hockey results use all declared evaluation clips. Pose-supported subset scores are secondary and do not replace the all-clip denominator.
+
+\subsection{Runtime and artifact verification}
+The offline pose benchmark uses ten fixed duration-selected crowd clips on an NVIDIA GeForce RTX 3050 Laptop GPU. Thirty warm measurements consist of three repetitions per clip, and ten cold measurements launch one external process per clip. Warm pipeline time includes full decode, sampled pose extraction and tracking, corrected features, normalization/transfer, and classification. Cold external wall time additionally includes Python launch, imports, and model initialization. Overlay generation and video export are excluded.
+
+The fine-tuning run records total wall time and peak PyTorch allocated GPU memory. Those training measurements differ from clip inference latency. We have not established an equivalent cold/warm fine-tuned-video benchmark or measured continuous-stream performance.
+
+Saved-result audits reproduce model scores, thresholds, decisions, and metrics and verify source/settings hashes and video decoding. The final implementation suite has 60 passing tests, including bounded sampling, closed-window tails, and sealed-protocol checks. Ten previous completed experiments retain 8,474 files byte-for-byte. These checks support computational consistency and preservation; they do not establish independent labels, causal feature use, or deployment reliability.

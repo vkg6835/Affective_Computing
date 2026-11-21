@@ -1,0 +1,265 @@
+{
+  "date": "2026-11-21",
+  "status": "passed",
+  "artifact_role": "Author-review draft; not a submission approval",
+  "pdf": {
+    "pages": 14,
+    "page_size": [
+      0.0,
+      0.0,
+      612.0,
+      792.0
+    ],
+    "sha256": "0a95378e48e68b8444b426104c96f70707f9f88e04b33ce93d1210926d199c66",
+    "fonts": [
+      "AKHCZK+CMMI10",
+      "BBTKDL+DejaVuSans",
+      "BHJFJL+DejaVuSans",
+      "BIQCMC+DejaVuSans",
+      "BKLIVA+DejaVuSans",
+      "BZIVMZ+NimbusRomNo9L-MediItal",
+      "CADVSI+DejaVuSans",
+      "CAFSZL+CMBX10",
+      "CPUQYB+DejaVuSans",
+      "CTWWHN+DejaVuSans-Oblique",
+      "DDIEWW+CMMI7",
+      "DZGKAF+CMMI5",
+      "FCNFGO+DejaVuSans",
+      "FKPJSN+CMSY10",
+      "FZDNHS+CMMIB10",
+      "GJMHKB+CMSY8",
+      "IHAIZV+NimbusRomNo9L-Regu",
+      "IXFAWU+NimbusRomNo9L-Medi",
+      "JAGKKY+CMR7",
+      "KPXLOM+CMSY7",
+      "NITCSQ+CMMI8",
+      "NOMARO+CMEX10",
+      "PVTTLK+MSBM10",
+      "TQTHRL+NimbusRomNo9L-ReguItal",
+      "UTACNV+CMSS8",
+      "VDVGTR+CMR10",
+      "XDGVPP+DejaVuSans",
+      "YEUUOC+NimbusMonL-Regu"
+    ],
+    "outside_page": [],
+    "undefined_references": false,
+    "overfull_boxes": [],
+    "authors_present": true,
+    "emails_present": true,
+    "abstract_words": 202
+  },
+  "template_class_unchanged": true,
+  "cited_references": 18,
+  "tables": 9,
+  "figures": 7,
+  "verified_evidence": [
+    {
+      "path": "output/centering_corrected_cpu_20261115/summary.json",
+      "sha256": "02aa4dfce6d1f1d0315e2a0c638c98cf4c9c63e940f01ca3defee57ef499a709",
+      "verified": true
+    },
+    {
+      "path": "output/centering_corrected_cpu_20261115/centering_comparison.json",
+      "sha256": "2368a1f4ae79f668e5d32a81cc89fea740dda04198fcb1758f215f88f0300d67",
+      "verified": true
+    },
+    {
+      "path": "output/input_controls_20261115/summary.json",
+      "sha256": "a611f4ee740a15c407206ddac7d3309b7c92004aa174083f99ce60890172328d",
+      "verified": true
+    },
+    {
+      "path": "output/video_baseline_v2_20261115/summary.json",
+      "sha256": "a134767304ac46b46b05b924e80a707c194fd365bab1007aafa91b9682d2b284",
+      "verified": true
+    },
+    {
+      "path": "output/rwf_supervised_20261115/metrics.json",
+      "sha256": "9ad43667a444b73ea798c09f6f747620ff01cba29f442adf9f18952cb5cf3413",
+      "verified": true
+    },
+    {
+      "path": "output/rwf_finetune_v2_20261115/promotion.json",
+      "sha256": "fee722fa4094678818727055dfd822995c51ea6469b8df28443ef7d340530604",
+      "verified": true
+    },
+    {
+      "path": "output/rwf_finetune_v2_20261115/training_history.json",
+      "sha256": "2cc3b7271243ba4cdef69dd2454402fec1d96eeb711432247d6b21aeecb5fbcf",
+      "verified": true
+    },
+    {
+      "path": "output/final_delivery_20261115/rwf_evaluation/metrics.json",
+      "sha256": "7b8feaf6eed8dfee82949ab73470d6a8cc4ad50ff4b39510c90e01504ec125c2",
+      "verified": true
+    },
+    {
+      "path": "output/external_validation_20261115/metrics.json",
+      "sha256": "f2d5a1b734fbd9b9b2f2693e12e88b69f3ed2db3fdff49730198303ebcdfa334",
+      "verified": true
+    },
+    {
+      "path": "output/runtime_20261115/summary.json",
+      "sha256": "f1a05b7cf3380ea9e11147f03bb843d8447da3c5071b70a34ff320956ab2c0f9",
+      "verified": true
+    },
+    {
+      "path": "output/final_delivery_20261115/demo_audit.json",
+      "sha256": "c6e138d612d1e1f27117d687b13d8cb84caee81eb06acd45d08d68fca32531fa",
+      "verified": true
+    },
+    {
+      "path": "output/coverage_ablation_20261114/coverage_comparison.json",
+      "sha256": "b4c71c715adaedaccb5d8568b195501dac805f683251288ee441b13f1efbb2da",
+      "verified": true
+    },
+    {
+      "path": "output/final_delivery_20261115/demos/false_positive.jpg",
+      "sha256": "9729e86a33a104c30846d89be023dbee45c5611c65ac04b879629eb1caeab420",
+      "verified": true
+    },
+    {
+      "path": "output/final_delivery_20261115/demos/false_negative.jpg",
+      "sha256": "adb1ba60e6dbcb7656459ec1cad861b2f952b3a0575459d25a4a5c1076658813",
+      "verified": true
+    },
+    {
+      "path": "output/centering_corrected_cpu_20261115/fold_1/runs/interactions_seed42/model.pt",
+      "sha256": "11cf6c9ca0b5b2294e391d26631adbc786d259359d976c5ed7cd6cf199ff5c73",
+      "verified": true
+    },
+    {
+      "path": "output/rwf_supervised_20261115/model.json",
+      "sha256": "50283bc44a38c60451e4dc54a392960e84f61c8887aef3c425ad133279e1b642",
+      "verified": true
+    },
+    {
+      "path": "output/rwf_finetune_v2_20261115/model.pt",
+      "sha256": "04692366a21cd5469573733281d3124289e1584df6fdd7c175dd42aa558cab4f",
+      "verified": true
+    }
+  ],
+  "evaluation_table_checks": [
+    {
+      "dataset": "RWF",
+      "model": "rwf_frozen_video",
+      "n": 400,
+      "confusion_matrix": [
+        [
+          179,
+          21
+        ],
+        [
+          43,
+          157
+        ]
+      ],
+      "threshold": 0.5,
+      "table_matches": true
+    },
+    {
+      "dataset": "RWF",
+      "model": "rwf_finetuned_video",
+      "n": 400,
+      "confusion_matrix": [
+        [
+          160,
+          40
+        ],
+        [
+          25,
+          175
+        ]
+      ],
+      "threshold": 0.23,
+      "table_matches": true
+    },
+    {
+      "dataset": "Hockey",
+      "model": "rwf_frozen_video",
+      "n": 1000,
+      "confusion_matrix": [
+        [
+          486,
+          14
+        ],
+        [
+          278,
+          222
+        ]
+      ],
+      "threshold": 0.5,
+      "table_matches": true
+    },
+    {
+      "dataset": "Hockey",
+      "model": "rwf_finetuned_video",
+      "n": 1000,
+      "confusion_matrix": [
+        [
+          443,
+          57
+        ],
+        [
+          132,
+          368
+        ]
+      ],
+      "threshold": 0.23,
+      "table_matches": true
+    },
+    {
+      "dataset": "Hockey",
+      "model": "crowd_pose_interactions",
+      "n": 1000,
+      "confusion_matrix": [
+        [
+          68,
+          432
+        ],
+        [
+          159,
+          341
+        ]
+      ],
+      "threshold": 0.62,
+      "table_matches": true
+    }
+  ],
+  "epoch": 2,
+  "threshold": 0.23,
+  "scope": "Read-only checks of archived experiment evidence; no fitting, inference, relabeling, or threshold tuning",
+  "title": "Violence and Goon Detection in a Crowd or Protest",
+  "title_source": "PROJECT_PROPOSAL.md, original registered project title",
+  "running_header_text_omitted": true,
+  "visual_review": {
+    "pages_inspected": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14
+    ],
+    "result": "passed",
+    "method": "Reviewed final rendered pages in four contact sheets after restoring the original title."
+  },
+  "source_zip_compilation": {
+    "status": "passed",
+    "method": "Fresh ZIP extraction, independent Tectonic compile with no project archive inputs",
+    "pages": 14,
+    "all_page_text_matches": true,
+    "all_page_pixels_match_at_default_render_scale": true,
+    "single_file_version_also_matches": true,
+    "engine": "Tectonic; the source also targets standard Overleaf pdfLaTeX",
+    "known_nonblocking_warnings": "Supplied class identifies itself as IEEEtran; Tectonic font initialization and underfull spacing warnings. No unresolved references or overfull boxes."
+  }
+}

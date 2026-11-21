@@ -1,7 +1,21 @@
 # Teammate setup and results
 
-Repository updated on 18 November 2026 with the technical delivery evaluated
-on 15 November. The existing project PDF remains in the repository.
+Repository updated on 21 November 2026 with the complete paper draft and the
+technical delivery evaluated on 15 November. The existing project PDF remains
+in the repository.
+
+## Paper and Overleaf
+
+The paper uses the original title, **Violence and Goon Detection in a Crowd
+or Protest**, and omits running header text. Download the
+[14-page PDF](output/pdf/paper_20261121/manuscript.pdf),
+[complete LaTeX file](output/pdf/paper_20261121/complete_paper.tex), or
+[Overleaf ZIP](output/pdf/paper_20261121/overleaf_single_file.zip).
+Upload the ZIP through Overleaf's **New Project > Upload Project**, select
+`main.tex` and pdfLaTeX, and edit the paper. The ZIP includes the class and
+figures; all sections, tables, and references are inline in `main.tex`.
+Use Overleaf's Share button to invite collaborators or share the ZIP and PDF
+directly. Review [the author notes](paper/latex_20261121/REVIEW_NOTES.md).
 
 ## Final presentation
 

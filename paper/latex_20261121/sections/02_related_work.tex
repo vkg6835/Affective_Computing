@@ -1,0 +1,39 @@
+\section{Related Work}
+\subsection{Violence datasets and motion representations}
+Nievas et al. introduced video violence detection experiments and hockey fight footage as a benchmark \cite{nievas2011}. Hassner et al. studied violent crowd behavior using changes in optical-flow magnitude and provided the Violent-Flows dataset with classification and outbreak-detection protocols \cite{hassner2012}. Serrano Gracia et al. also examined efficient fight detection using motion information \cite{serrano2015}. These studies establish that motion is useful, while the recording context and prediction target determine how a reported result should be interpreted.
+
+RWF-2000 provides a surveillance-oriented collection and a Flow Gated Network combining three-dimensional convolution and optical-flow information \cite{cheng2020}. We use its released footage for a separate supervised video reference. Our frozen R3D-18 classifier and limited fine-tuning are not a reproduction of the published Flow Gated Network. Differences in architecture, preprocessing, source exclusions, and development history prevent a direct benchmark superiority claim. Similarly, we retain custom source-grouped crowd folds instead of presenting them as the supplied Violent-Flows protocol.
+
+\subsection{Skeleton sequence modeling}
+Spatial Temporal Graph Convolutional Networks learn spatial and temporal patterns on skeleton graphs \cite{yan2018}. Two-stream adaptive graph convolution further learns graph structure and combines different skeleton signals \cite{shi2019}. These methods demonstrate that skeleton-based action recognition and learned body relationships predate this study. Our temporal convolutional encoder is intentionally small and uses shared per-person processing followed by masked set pooling. It does not implement a graph-convolution architecture or establish that simple nearest-neighbor features replace learned graph reasoning.
+
+Famouri et al. combine pose sequences with temporal classification and federated learning for surveillance anomaly detection \cite{famouri2025}. Their work motivates evaluating skeleton sequences in surveillance, but its anomaly labels, learning setup, and representation differ from ours. Hegiste et al. study pose-based federated recognition of industrial worker gestures \cite{hegiste2025}. That application provides pose-processing context rather than evidence of violence classification performance. We implement neither federated training nor formal privacy mechanisms. Removing raw appearance from classifier input alone does not certify anonymity or privacy.
+
+Temporal convolution is also an established sequence-modeling approach. Bai et al. systematically compare generic convolutional and recurrent models across sequence tasks \cite{bai2018}. We use residual dilated convolutions as a practical baseline, with masking for absent person observations. The classifier operates on complete clips with symmetric temporal padding. Its implementation does not assume a causal or streaming inference setting.
+
+\subsection{Pretrained video representations}
+Tran et al. compare spatiotemporal convolution families for action recognition \cite{tran2018}. The R3D-18 implementation available in TorchVision supplies a pretrained three-dimensional residual encoder \cite{torchvision}. Its Kinetics-400 pretraining comes from a broad human-action dataset \cite{kay2017}. A frozen encoder allows a small downstream classifier to exploit that representation without fitting all encoder parameters on a limited crowd corpus. Limited fine-tuning can then adapt later layers, but its usefulness must be assessed using a fixed selection boundary.
+
+This study separates three uses of video features: crowd-trained logistic classifiers on frozen embeddings, a new RWF-trained logistic classifier, and a layer4 fine-tuning candidate initialized from the supervised reference. These models share an encoder family but differ in training data and learned parameters. Their accuracies therefore cannot be treated as successive scores on a single unchanged task. We compare models within their specified evaluation partitions and use external scores only after sealing model and threshold choices.
+
+\subsection{Position of the present study}
+Our emphasis is on controlled diagnosis rather than a claim that reliability channels, skeleton interactions, or pretrained video features are new. The experiments ask which additions help a fixed implementation, which information remains after an ablation, and how a selected video candidate changes errors. Independent label correctness, complete source separation, and pretraining overlap are separate questions. Artifact reproduction supports consistency of saved computation; it does not answer those questions automatically.
+
+Table~\ref{tab:related} summarizes the relationship between the main foundations and the implemented task. Published task scores are deliberately omitted because their protocols and model families differ from this study.
+\begin{table*}[t]
+\caption{Foundation studies and their relationship to this implementation. These are methodological references, not matched performance comparisons.}
+\label{tab:related}\centering
+\begin{tabularx}{\textwidth}{lYY}
+\toprule
+Reference & Relevant idea or resource & Difference from the present study\\
+\midrule
+Nievas et al. \cite{nievas2011} & Video fight classification and hockey footage & Hockey is an external fixed-score domain here.\\
+Hassner et al. \cite{hassner2012} & Crowd motion and Violent-Flows & We use custom source-grouped folds and whole-clip outputs.\\
+Cheng et al. \cite{cheng2020} & RWF-2000 and a video/flow network & We use frozen R3D-18 heads and limited layer4 adaptation.\\
+Yan et al.; Shi et al. \cite{yan2018,shi2019} & Skeleton graph and temporal modeling & Our encoder is a per-person TCN with nearest-person descriptors.\\
+Famouri et al. \cite{famouri2025} & Pose sequences for surveillance anomalies & We study binary violence and use centralized training.\\
+Hegiste et al. \cite{hegiste2025} & Pose processing for worker actions & Industrial gestures do not validate crowd violence recognition.\\
+Tran et al. \cite{tran2018} & Spatiotemporal residual video encoding & We evaluate a downstream pretrained reference and bounded fine-tuning.\\
+\bottomrule
+\end{tabularx}
+\end{table*}

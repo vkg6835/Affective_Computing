@@ -1,12 +1,16 @@
 # Project status
 
-Updated 15 November 2026 after the sealed fine-tuned evaluations and final
-technical delivery. Earlier percentage estimates were rough planning judgments.
-The current checklist records completed outputs and the remaining review task.
+Updated 21 November 2026 after completion of the checked 14-page IEEE TAI
+author-review draft. The sealed fine-tuned evaluations and technical delivery
+remain unchanged. Earlier percentage estimates were rough planning judgments.
+
+[Paper PDF](output/pdf/paper_20261121/manuscript.pdf) |
+[Overleaf ZIP](output/pdf/paper_20261121/overleaf_source.zip) |
+[Review notes](paper/latex_20261121/REVIEW_NOTES.md)
 
 The local GPU evaluation and delivery work is complete. Independent human
 label/difficulty review remains pending because no reviewer is available.
-Paper drafting remains deferred. Completion describes work delivered and does
+The full draft is complete for author review. Completion describes work delivered and does
 not imply reliable deployment.
 
 The retained video model is the layer-4 fine-tuned R3D-18 candidate. Validation
@@ -54,4 +58,5 @@ The core clip-level implementation, controlled experiments, bounded fine-tuning,
 external scoring and demo/runbook delivery are complete. Independent full-video
 label/difficulty review is still required for the broader technical completion
 claim. No review has been fabricated or replaced by assistant inspection.
-The full manuscript is outside the active scope and remains deferred.
+The full manuscript is complete as a checked draft. Professor and author review
+remain pending; manuscript completion does not imply submission approval.

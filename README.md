@@ -2,6 +2,29 @@
 
 This project runs raw crowd videos through multi-person pose extraction, within-clip tracking, motion/interaction features, a small temporal convolutional network, and binary clip prediction. It implements the four configurations described in `presentations/Stage1_Crowd_Violence_Detection.pptx`.
 
+## Complete paper draft: 21 November 2026
+
+**Violence and Goon Detection in a Crowd or Protest**
+
+The checked IEEE TAI draft is 14 pages, with nine tables, seven figures,
+and 18 references. The original project title is restored, and running
+header text is removed.
+
+- [Read or download the paper PDF](output/pdf/paper_20261121/manuscript.pdf)
+- [Download the complete editable LaTeX file](output/pdf/paper_20261121/complete_paper.tex)
+- [Download the single-file Overleaf project ZIP](output/pdf/paper_20261121/overleaf_single_file.zip)
+- [Download the sectioned Overleaf project ZIP](output/pdf/paper_20261121/overleaf_source.zip)
+- [Author and professor review notes](paper/latex_20261121/REVIEW_NOTES.md)
+
+In Overleaf, choose **New Project > Upload Project**, upload either ZIP, and
+use `main.tex` with the pdfLaTeX compiler. The single-file version includes
+all sections, tables, and references in `main.tex`. Both ZIPs include the
+class and figures and have been compiled independently. On GitHub, use the
+file's download button to save a ZIP or LaTeX file.
+
+This is an author-review draft. Independent label review remains pending,
+and the paper retains the exploratory qualifications of the saved results.
+
 ## Final presentation
 
 The [final technical deck](presentations/Final_Crowd_Violence_Presentation_20261119.pptx)
@@ -9,8 +32,8 @@ contains 16 main slides and four appendix slides, with completed results,
 limitations and speaker notes. Slides 13 and 14 link to the four saved MP4s in
 `presentations/media`. Keep that folder beside the deck when sharing it.
 [Opening instructions](presentations/FINAL_PRESENTATION.md) explain playback.
-The original Stage 1 deck is preserved. Paper drafting and independent label
-review remain pending.
+The original Stage 1 deck is preserved. The complete paper draft is linked
+above; independent label review remains pending.
 
 ## Instructions for teammates
 
@@ -29,7 +52,7 @@ still pending, and the coordinator mapping is not published.
 
 The local GPU evaluation and delivery work is complete. Independent human
 label/difficulty review remains pending because no reviewer is available.
-Paper drafting remains deferred. Completion describes work delivered and does
+The complete paper draft is linked above. Completion describes work delivered and does
 not imply reliable deployment.
 
 The retained video model is the layer-4 fine-tuned R3D-18 candidate. Validation
@@ -75,8 +98,8 @@ accounting, sealed-protocol rejection and the validation batch-shape check.
 
 ## Earlier technical progress:
 
-Paper drafting is deferred. The active technical work is roughly 85 to 90%
-complete as a planning estimate, separate from prediction accuracy.
+At this earlier stage, paper drafting was deferred and technical work was
+roughly 85 to 90% complete as a planning estimate, separate from prediction accuracy.
 
 The separate supervised RWF reference is now complete: 82.0% validation accuracy
 and 84.0% released-evaluation accuracy, macro-F1 0.840 and AUC 0.900. Its fresh

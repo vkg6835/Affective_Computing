@@ -26,3 +26,7 @@ coordinator_mapping.json
 !output/final_delivery_20261115/demos/*.mp4
 !presentations/media/*.mp4
 !output/centering_corrected_cpu_20261115/fold_1/runs/interactions_seed42/model.pt
+
+# Share only the two checked manuscript source bundles.
+!output/pdf/paper_20261121/overleaf_source.zip
+!output/pdf/paper_20261121/overleaf_single_file.zip

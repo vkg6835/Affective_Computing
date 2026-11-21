@@ -1,0 +1,16 @@
+\begin{table*}[t]
+\caption{Fixed all-clip evaluation. Fight is positive. FP counts nonviolent clips flagged violent, and FN counts missed violent clips.}
+\label{tab:evaluation}\centering
+\begin{tabular}{llrrrrrrrrr}
+\toprule
+Set & Model & $n$ & $\tau$ & Accuracy & F1 & AUC & Precision & Recall & FP & FN\\
+\midrule
+RWF & Frozen video & 400 & 0.50 & 84.00\% & 0.840 & 0.900 & 88.2\% & 78.5\% & 21 & 43\\
+RWF & Fine-tuned video & 400 & 0.23 & 83.75\% & 0.837 & 0.929 & 81.4\% & 87.5\% & 40 & 25\\
+Hockey & Frozen video & 1000 & 0.50 & 70.80\% & 0.686 & 0.886 & 94.1\% & 44.4\% & 14 & 278\\
+Hockey & Fine-tuned video & 1000 & 0.23 & 81.10\% & 0.810 & 0.893 & 86.6\% & 73.6\% & 57 & 132\\
+Hockey & Crowd pose & 1000 & 0.62 & 40.90\% & 0.361 & 0.420 & 44.1\% & 68.2\% & 432 & 159\\
+\bottomrule
+\end{tabular}
+\par\smallskip\parbox{\textwidth}{\footnotesize RWF results use previously inspected footage. All 1,000 Hockey mirror clips remain. The frozen video reference is the predeclared primary external model; fine-tuning is supplementary and crowd pose is diagnostic.}
+\end{table*}

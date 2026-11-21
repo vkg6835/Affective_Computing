@@ -1,0 +1,17 @@
+\begin{table}[t]
+\caption{Corrected CPU crowd results. Accuracy is in percent. The spread is descriptive fold/seed standard deviation.}
+\label{tab:pose}\centering
+\begin{tabular}{lrrrr}
+\toprule
+Model & Fits & Accuracy & F1 & AUC\\
+\midrule
+Baseline & 15 & 77.0 $\pm$ 4.7 & 0.765 & 0.856\\
+Reliability & 15 & 78.1 $\pm$ 6.1 & 0.777 & 0.862\\
+Interactions & 15 & 78.6 $\pm$ 5.6 & 0.782 & 0.851\\
+Combined & 15 & 74.7 $\pm$ 5.9 & 0.736 & 0.858\\
+Motion linear & 5 & 75.1 $\pm$ 5.3 & 0.748 & 0.798\\
+Quality only & 5 & 77.6 $\pm$ 6.1 & 0.773 & 0.861\\
+\bottomrule
+\end{tabular}
+\par\smallskip\parbox{\columnwidth}{\footnotesize F1 denotes macro-F1. TCNs have 15 fits per variant; deterministic controls have five fits. Dependent runs do not provide confidence intervals.}
+\end{table}
