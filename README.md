@@ -1,4 +1,4 @@
-# Crowd violence detection project
+# Crowd violence and Goon detection
 
 This project runs raw crowd videos through multi-person pose extraction, within-clip tracking, motion/interaction features, a small temporal convolutional network, and binary clip prediction. It implements the four configurations described in `presentations/Stage1_Crowd_Violence_Detection.pptx`.
 
